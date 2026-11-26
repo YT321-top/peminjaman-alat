@@ -1,0 +1,495 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+        color: #1F2937;
+        background-color: #F7F7F8;
+    }
+
+    body {
+        @apply bg-[#F7F7F8] text-[#1F2937] antialiased;
+    }
+
+    select {
+        line-height: 1.25rem;
+    }
+}
+
+.drawer-panel {
+    transition:
+        transform 600ms cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 420ms ease,
+        visibility 600ms linear;
+}
+
+.drawer-backdrop {
+    transition:
+        opacity 480ms ease,
+        visibility 480ms linear;
+}
+
+.nav-label-item {
+    transition-property: transform, opacity, background-color, color;
+    transition-duration: 520ms, 420ms, 180ms, 180ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1), ease, ease, ease;
+    transition-delay: var(--stagger, 0ms), var(--stagger, 0ms), 0ms, 0ms;
+}
+
+.drawer-closed .nav-label-item {
+    opacity: 0;
+    transform: translateX(-22px);
+    transition-duration: 280ms, 240ms, 180ms, 180ms;
+    transition-delay: 0ms, 0ms, 0ms, 0ms;
+}
+
+.drawer-open .nav-label-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.ham-line {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+        transform 460ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 300ms ease;
+}
+
+.is-open .ham-top {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.is-open .ham-mid {
+    opacity: 0;
+    transform: scaleX(0.3);
+}
+
+.is-open .ham-bot {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+.sync-rail-hover {
+    background-color: rgba(255, 255, 255, 0.24) !important;
+    color: #ffffff !important;
+    transform: scale(1.05);
+}
+
+.sync-drawer-hover {
+    background-color: #FEF2F2 !important;
+    color: #E53935 !important;
+}
+
+/* Efek Card Dinamis & Interaktif + Hover Pop-Up 1.04x (Industrial Clean) */
+@keyframes cardFadeUp {
+    from {
+        opacity: 0;
+        translate: 0 10px;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+.lp-card,
+.lp-card-lg,
+.lp-panel-lg {
+    position: relative;
+    overflow: hidden;
+    transform-origin: center center;
+}
+
+/* Render-Ready & Scroll-Triggered Entry Reveal (Opsi 2: 600ms santai & GPU-composited) */
+html.lp-js .lp-reveal {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition-property: opacity, transform;
+    transition-duration: 600ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--lp-reveal-delay, 0ms);
+    will-change: opacity, transform;
+}
+
+html.lp-js .lp-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.lp-js .lp-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+.lp-card::before,
+.lp-card-lg::before,
+.lp-panel-lg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.5px;
+    background-color: #E53935;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.lp-card {
+    transition:
+        transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 200ms ease;
+}
+
+.lp-card:hover {
+    z-index: 10;
+    transform: translateY(-3px);
+    border-color: #E53935;
+}
+
+.lp-card-lg {
+    transition:
+        transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 200ms ease;
+}
+
+.lp-card-lg:hover {
+    z-index: 10;
+    transform: translateY(-2px);
+    border-color: rgba(229, 57, 53, 0.6);
+}
+
+.lp-card-3d {
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 8px 18px -6px rgba(15, 23, 42, 0.12),
+        0 3px 8px -2px rgba(15, 23, 42, 0.06);
+    transition:
+        transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 180ms ease;
+}
+
+.lp-card-3d:hover {
+    z-index: 10;
+    transform: translateY(-4px);
+    border-color: #CBD5E1;
+}
+
+.lp-panel-lg {
+    transition: border-color 200ms ease;
+}
+
+.lp-panel-lg:hover {
+    border-color: rgba(229, 57, 53, 0.4);
+}
+
+.lp-card:hover::before,
+.lp-card-lg:hover::before,
+.lp-panel-lg:hover::before {
+    transform: scaleX(1);
+}
+
+.lp-icon-box {
+    transition:
+        transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        background-color 220ms ease,
+        color 220ms ease;
+}
+
+.lp-card:hover .lp-icon-box {
+    transform: scale(1.1) rotate(-3deg);
+    background-color: #E53935;
+    color: #FFFFFF;
+}
+
+.lp-illu-stage {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 260ms ease, border-color 260ms ease;
+}
+
+.lp-illu-stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+    background-size: 13px 13px;
+    transition: opacity 320ms ease;
+    pointer-events: none;
+}
+
+.lp-illu-stage--soft::after {
+    opacity: 0.35;
+}
+
+.lp-card:hover .lp-illu-stage::after,
+.lp-card-lg:hover .lp-illu-stage::after {
+    opacity: 0.8;
+}
+
+.lp-illu-svg {
+    position: relative;
+    z-index: 1;
+    transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lp-card:hover .lp-illu-svg,
+.lp-card-lg:hover .lp-illu-svg {
+    transform: scale(1.08) translateY(-2px);
+}
+
+.lp-plus-btn {
+    transition:
+        transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 200ms ease,
+        box-shadow 260ms ease;
+}
+
+.lp-card:hover .lp-plus-btn:not(:disabled) {
+    transform: scale(1.08);
+    box-shadow: 0 4px 10px -2px rgba(229, 57, 53, 0.35);
+}
+
+.lp-btn-red {
+    transition:
+        transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 200ms ease,
+        box-shadow 240ms ease;
+}
+
+.lp-btn-red:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px -4px rgba(229, 57, 53, 0.38);
+}
+
+.lp-sub-item {
+    transition:
+        transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 200ms ease,
+        background-color 200ms ease,
+        box-shadow 260ms ease;
+}
+
+.lp-sub-item:hover {
+    transform: translateY(-2px) scale(1.025);
+    border-color: rgba(229, 57, 53, 0.5);
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 18px -10px rgba(31, 41, 55, 0.14);
+}
+
+.lp-sub-item .lp-mini-svg {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lp-sub-item:hover .lp-mini-svg {
+    transform: scale(1.1);
+}
+
+.lp-tr-row {
+    transition: background-color 200ms ease;
+}
+
+.lp-tr-row td:first-child {
+    position: relative;
+}
+
+.lp-tr-row td:first-child::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 6px;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background-color: #E53935;
+    transform: scaleY(0);
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lp-tr-row:hover {
+    background-color: #FFF8F8;
+}
+
+.lp-tr-row:hover td:first-child::before {
+    transform: scaleY(1);
+}
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroZoomDrift {
+    from {
+        transform: scale(1.09);
+    }
+    to {
+        transform: scale(1.02);
+    }
+}
+
+.hero-text-enter {
+    animation: heroFadeUp 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-bg-drift {
+    animation: heroZoomDrift 6500ms ease-out forwards;
+}
+
+@keyframes lpDdMenuIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.lp-dd-menu {
+    animation: lpDdMenuIn 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes lpModalPopIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.lp-modal-pop {
+    animation: lpModalPopIn 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes lpToastIn {
+    from {
+        opacity: 0;
+        transform: translate3d(16px, 0, 0) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@keyframes lpToastOut {
+    from {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate3d(16px, 0, 0) scale(0.97);
+    }
+}
+
+@keyframes lpToastBar {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}
+
+.lp-toast-enter {
+    animation: lpToastIn 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.lp-toast-leave {
+    animation: lpToastOut 180ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.lp-toast-bar {
+    transform-origin: left center;
+    animation: lpToastBar var(--lp-toast-duration, 4200ms) linear forwards;
+}
+
+.lp-toast:hover .lp-toast-bar {
+    animation-play-state: paused;
+}
+
+.lp-peminjam-glider {
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+                width 280ms cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 150ms ease;
+    will-change: transform, width;
+}
+
+.lp-peminjam-track.lp-glider-ready .lp-peminjam-tab[data-active="1"] {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lp-peminjam-glider,
+    .lp-expand-search,
+    .lp-expand-fields {
+        transition: none;
+    }
+}
+
+.lp-expand-search {
+    transition: width 300ms cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 180ms ease,
+                border-color 180ms ease,
+                box-shadow 180ms ease;
+    will-change: width;
+}
+
+.lp-expand-fields {
+    transition: opacity 180ms ease;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background-color: #FFFFFF !important;
+    }
+
+    .lp-reveal {
+        opacity: 1 !important;
+        translate: none !important;
+        scale: 1 !important;
+        transition: none !important;
+    }
+
+    .lp-card,
+    .lp-card-lg,
+    .lp-card-3d,
+    .lp-panel-lg {
+        animation: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    .lp-card::before,
+    .lp-card-lg::before,
+    .lp-panel-lg::before {
+        display: none !important;
+    }
+}
